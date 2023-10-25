@@ -3,6 +3,7 @@ from faker import Faker
 from app import app
 from models import db, User, Expense, Category
 from random import randint, choice, choices
+from datetime import datetime
 
 if __name__ == '__main__':
     fake = Faker()
@@ -14,30 +15,31 @@ if __name__ == '__main__':
         Category.query.delete()
         
         users = []
+        # used_names: set[str] = set()
 
         for n in range(8):
             user = User(email = fake.email(), username = fake.first_name(), password = fake.word())
+            # if user not in used_names:
+            #     users.append(User(username = username))
+            #     used_names.add(username)
             users.append(user)
         db.session.add_all(users)
         db.session.commit()
 
+        categories = []
+
+        for n in range(20):
+            category = Category(name = fake.city())
+            categories.append(category)
+
+        db.session.add_all(categories)
+        db.session.commit()
 
         expenses = []
 
         for n in range(8):
-            expense = Expense(amount = fake.number(), date = fake.date(), )
-            posts.append(content)
+            expense = Expense(amount = fake.pyint(), date = fake.date_this_decade(), company_name = fake.catch_phrase(), description = fake.text(), category_id = choice(categories).id, user_id = choice(users).id)
+            expenses.append(expense)
 
-        db.session.add_all(posts)
+        db.session.add_all(expenses)
         db.session.commit()
-
-        comments = []
-
-        for n in range(20):
-            text = Comment(text = fake.name(), profile_id = choice(profiles).id, post_id = choice(posts).id)
-            comments.append(text)
-
-        db.session.add_all(comments)
-        db.session.commit()
-
-    
