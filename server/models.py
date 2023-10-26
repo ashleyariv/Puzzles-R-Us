@@ -19,18 +19,18 @@ db = SQLAlchemy(metadata=metadata)
 
 class User(db.Model, SerializerMixin): 
     __tablename__ = 'user_table'
-    serialize_rules = ('expenses.user',)
+    serialize_rules = ('-expenses.user',)
 
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String , unique = True, nullable = False)
     username = db.Column(db.String, unique = True, nullable = False)
     password = db.Column(db.String, unique = True, nullable = False)
 
-    expenses = db.relationship('Expense', back_populates = 'user')
+    expenses = db.relationship('Expense', back_populates = 'user', cascade = 'all, delete-orphan')
 
 class Expense(db.Model, SerializerMixin):
     __tablename__ = 'expense_table'
-    serialize_rules = ('user.expenses', 'category.expenses')
+    serialize_rules = ('-user.expenses', '-category.expenses')
 
     id = db.Column(db.Integer, primary_key = True)
     amount = db.Column(db.Float, nullable = False)
@@ -45,7 +45,7 @@ class Expense(db.Model, SerializerMixin):
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'category_table'
-    serialize_rules = ('expenses.category',)
+    serialize_rules = ('-expenses.category',)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False) 
