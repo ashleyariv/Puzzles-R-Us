@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
         categories = []
 
-        for n in range(20):
+        for n in range(8):
             category = Category(name = fake.city())
             categories.append(category)
 
