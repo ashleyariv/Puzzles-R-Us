@@ -3,6 +3,7 @@ from models import db, User, Expense, Category
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt 
 from flask_cors import CORS
+from datetime import date
 
 
 app = Flask(__name__)
@@ -61,12 +62,15 @@ def logout():
     session.pop('user_id')
     return {'Success' : 'User is logged out.'}, 200
 
-@app.get('/expenses/<int:id>')
-def get_expense_by_id(id):
+@app.get('/<string:username>/expenses/<int:id>')
+def get_expense_by_id(username, id):
+    user = User.query.filter(User.username == username).first()
     expense = Expense.query.filter(Expense.id == id).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
     if not expense:
         return make_response(jsonify({'Error': 'Expense does not exist,'}), 404)
-    return make_response(jsonify(expense.to_dict()), 200)
+    return make_response(jsonify(expense.to_dict(rules = ('-user', '-category'))), 200)
 
 @app.post('/<string:username>/home')
 def create_expense(username):
@@ -75,13 +79,15 @@ def create_expense(username):
     category = Category.query.filter(Category.name == data.get('category')).first()
     if not user:
         return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    if not category:
+        return make_response(jsonify({'Error' : 'category not found.'}), 404)
     try:
-        new_expense = Expense(amount = data.get('amount'), date = data.get('date'), company_name = data.get('company_name'), description = data.get('description'), category_id = category.id, user_id = data.get('user_id'))
-        print('NEW EXPEENSE', new_expense)
+        new_expense = Expense(amount = data.get('amount'), date = date.fromisoformat(data.get('date')), company_name = data.get('company_name'), description = data.get('description'), category_id = category.id, user_id = data.get('user_id'))
         db.session.add(new_expense)
         db.session.commit()
-        return make_response(jsonify(new_expense.to_dict()), 200)
+        return make_response(jsonify(new_expense.to_dict(rules = ('-user', '-category'))), 200)
     except Exception as e:
+        print(e)
         return make_response(jsonify({'Error': 'Invalid input. ' + str(e)}), 405)
 
 if __name__ == '__main__':

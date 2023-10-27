@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { Switch, Route, useHistory} from "react-router-dom";
 import Login from './Login' 
 import Home from './Home'
+import ExpenseCard from './ExpenseCard';
 
 function App() {
 
@@ -19,19 +20,13 @@ function App() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   fetch(`/${user.username}/home`)
-  //   .then(response => response.json())
-  //   .then(data => setExpenses(data))
-  // }, [])
-
   useEffect(() => {
     user &&
     fetch(`/${user.username}/home`)
     .then(response => {
       if (response.ok) {
         response.json()
-        .then(data => {setExpenses(data)})
+        .then(data => setExpenses([...data].sort().reverse()))
       } else{
         setExpenses([])
       }
@@ -81,7 +76,6 @@ function App() {
   }
 
   function addExpense(newExpense) {
-    console.log(newExpense)
     fetch(`/${user.username}/home`, {
       method: 'POST',
       headers: {
@@ -102,6 +96,9 @@ function App() {
         </Route>
         <Route path = '/home'>
           {user ? (<Home user = {user} logout = {logout} expenses = {expenses} addExpense = {addExpense} />) : null}
+        </Route>
+        <Route path = '/:username/expenses/:id'>
+          <ExpenseCard user = {user} expenses = {expenses} />
         </Route>
       </Switch>
     </div>

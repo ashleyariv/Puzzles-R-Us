@@ -1,7 +1,5 @@
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
-import ExpenseCard from './ExpenseCard'
-// import DatePicker from 'react-date-picker'
 
 function Home({user, expenses, logout, addExpense}) {
 
@@ -13,6 +11,11 @@ function Home({user, expenses, logout, addExpense}) {
         description: '',
         category_id: expenses.category,
         user_id: user.id
+    }
+
+    function reset () {
+        const dropDown = document.getElementById('select')
+        dropDown.selectedIndex = 'select one'
     }
 
     const [form, setForm] = useState(defaultForm)
@@ -31,6 +34,8 @@ function Home({user, expenses, logout, addExpense}) {
         e.preventDefault()
         addExpense(newObj)
         setForm(defaultForm)
+        setDate('')
+        reset()
     }
 
     const handleChange = e => {
@@ -46,14 +51,6 @@ function Home({user, expenses, logout, addExpense}) {
             <button onClick = {logout}>Logout</button>
             <h2>Your Expenses</h2>
             <form onSubmit = {handleSubmit}>
-                {/* <DatePicker 
-                    onChange={onDateChange}
-                    value={date}
-                    autoFocus={true}
-                    className="date-picker"
-                    closeCalendar={false}
-                /> */}
-
                 <input
                     type = 'date'
                     value = {date}
@@ -72,14 +69,15 @@ function Home({user, expenses, logout, addExpense}) {
                     value = {form.company_name}
                 />
                 <select 
-                    name='category'
+                    id = 'select'
+                    name ='category'
                     onChange = {handleChange}
-                    defaultValue={'select one'} 
+                    defaultValue = {'select one'} 
                 >
-                    <option value="select one" disabled>Select one</option>
-                    <option value='food'>Food</option>
-                    <option value='transportation'>Transportation</option>
-                    <option value='East Erica'>East Erica</option>
+                    <option value = 'select one' disabled>Select one</option>
+                    <option value = 'food'>Food</option>
+                    <option value = 'transportation'>Transportation</option>
+                    <option value = 'East Erica'>East Erica</option>
                 </select>
                 <textarea
                     name = 'description'
@@ -94,10 +92,9 @@ function Home({user, expenses, logout, addExpense}) {
                 <button type = 'submit'>Submit</button>
             </form>
                 {expenses.map(expense => (
-                    <>
+                    <Link to = {`/${user.username}/expenses/${expense.id}`}>
                         <h3>{expense.company_name}</h3>
-                        <ExpenseCard key={expense.id} expense={expense} />
-                    </>
+                    </Link>
                 ))}
         </div>
     )
