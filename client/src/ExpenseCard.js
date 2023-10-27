@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react'
 function ExpenseCard({user, expenses}) {
 
     const [expenseDetails, setExpenseDetails] = useState({})
-    const { id } = useParams()
-    console.log(id)
+    const { id, username } = useParams()
 
     useEffect(() => {
-        fetch(`/${user.username}/expenses/${id}`)
+        fetch(`/${username}/expenses/${id}`)
         .then(response => {
             if(response.ok) {
                 response.json()
