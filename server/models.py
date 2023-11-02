@@ -37,6 +37,7 @@ class Expense(db.Model, SerializerMixin):
     date = db.Column(db.Date, nullable = False) 
     company_name = db.Column(db.String(200), nullable = False)
     description = db.Column(db.String(300), nullable = False)
+    paid = db.Column(db.Boolean)
     category_id = db.Column(db.Integer, db.ForeignKey('category_table.id'), nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user_table.id'), nullable = False)
 

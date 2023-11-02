@@ -24,7 +24,7 @@ function Login({attemptLogin, attemptSignup}) {
                     placeholder = 'username'
                 />
                 <input
-                    type = 'text'
+                    type = 'password'
                     onChange = {handlePassword}
                     value = {password}
                     placeholder = 'password'

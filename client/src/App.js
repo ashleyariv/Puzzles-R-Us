@@ -60,7 +60,7 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-      .then((res)=>res.json())
+      .then((res) => res.json())
       .then((data) => {
         setUser(data)
         history.push('/home')
@@ -90,6 +90,12 @@ function App() {
     .then(data => setExpenses([data, ...expenses]))
   }
 
+  function updateExpenses(id) {
+    const updatedExpenses = expenses.filter(ex => parseInt(ex.id) !== parseInt(id))
+    setExpenses(updatedExpenses)
+    history.push('/home')
+  }
+
   return (
     <div className="App">
       {user && <NavBar user = {user} logout = {logout} />}
@@ -101,10 +107,10 @@ function App() {
           {user ? (<Home user = {user} logout = {logout} expenses = {expenses} addExpense = {addExpense} />) : null}
         </Route>
         <Route path = '/:username/expenses/:id'>
-          <ExpenseCard user = {user} expenses = {expenses} />
+          <ExpenseCard user = {user} expenses = {expenses} setExpenses = {setExpenses} updateExpenses = {updateExpenses}/>
         </Route>
         <Route path = '/:username'>
-          <Profile user = {user} />
+          <Profile user = {user} setUser = {setUser} />
         </Route>
       </Switch>
     </div>

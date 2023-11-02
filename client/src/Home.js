@@ -74,9 +74,14 @@ function Home({user, expenses, addExpense}) {
                     defaultValue = {'select one'} 
                 >
                     <option value = 'select one' disabled>Select one</option>
-                    <option value = 'food'>Food</option>
-                    <option value = 'transportation'>Transportation</option>
-                    <option value = 'East Erica'>East Erica</option>
+                    <option value = 'Food'>Food</option>
+                    <option value = 'Transportation/Travel'>Transportation/Travel</option>
+                    <option value = 'Supplies'>Supplies</option>
+                    <option value = 'Advertising'>Advertising</option>
+                    <option value = 'Rentals'>Rentals</option>
+                    <option value = 'Permits'>Permits</option>
+                    <option value = 'Medical'>Medical</option>
+                    <option value = 'Misc'>Misc</option>
                 </select>
                 <textarea
                     name = 'description'

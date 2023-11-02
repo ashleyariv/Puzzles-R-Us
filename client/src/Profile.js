@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useHistory} from 'react-router-dom'
 
-function Profile({user}) {
+function Profile({user, setUser}) {
 
     const [profile, setProfile] = useState({})
     const { username } = useParams()
@@ -25,7 +25,7 @@ function Profile({user}) {
         })
         .then(response => {
             if(response.ok) {
-                setProfile({})
+                setUser(null)
             } else {
                 alert('Something went wrong. Please try again.')
             }

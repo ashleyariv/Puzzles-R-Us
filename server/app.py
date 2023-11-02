@@ -108,6 +108,8 @@ def create_expense(username):
     data = request.json
     user = User.query.filter(User.username == username).first()
     category = Category.query.filter(Category.name == data.get('category')).first()
+    print(data)
+    print(user, category)
     if not user:
         return make_response(jsonify({'Error' : 'User not found.'}), 404)
     if not category:
@@ -152,6 +154,23 @@ def update_user(username):
     except Exception as e:
         print(e)
         return make_response(jsonify({'Error': 'Bad response. ' + str(e)}), 405)
+
+@app.patch('/<string:username>/expenses/<int:id>')
+def update_paid(username, id):
+    expense = Expense.query.filter(Expense.id == id).first()
+    if not expense:
+        return make_response(jsonify({'Error': 'Expense not found.'}))
+    data = request.json
+    try:
+        if 'paid' in data:
+            expense.paid = data['paid']
+            db.session.commit()
+            return make_response(jsonify(expense.to_dict(rules = ('-user',))), 201)
+        else: 
+            return make_response(jsonify({'Error': 'Nothing patched.'}))
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'Error': 'Something went wrong. ' + str(e)}), 405)
 
 if __name__ == '__main__':
     app.run(port = 5555, debug = True)
