@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
 
-function Home({user, expenses, logout, addExpense}) {
+function Home({user, expenses, addExpense}) {
 
     const defaultForm = {
         date: '', 
@@ -48,7 +48,6 @@ function Home({user, expenses, logout, addExpense}) {
 
     return (
         <div>
-            <button onClick = {logout}>Logout</button>
             <h2>Your Expenses</h2>
             <form onSubmit = {handleSubmit}>
                 <input
@@ -92,7 +91,7 @@ function Home({user, expenses, logout, addExpense}) {
                 <button type = 'submit'>Submit</button>
             </form>
                 {expenses.map(expense => (
-                    <Link to = {`/${user.username}/expenses/${expense.id}`}>
+                    <Link to = {`/${user.username}/expenses/${expense.id}`} key = {expense.id}>
                         <h3>{expense.company_name}</h3>
                     </Link>
                 ))}

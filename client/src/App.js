@@ -3,6 +3,8 @@ import { Switch, Route, useHistory} from "react-router-dom";
 import Login from './Login' 
 import Home from './Home'
 import ExpenseCard from './ExpenseCard';
+import NavBar from './NavBar';
+import Profile from './Profile';
 
 function App() {
 
@@ -90,6 +92,7 @@ function App() {
 
   return (
     <div className="App">
+      {user && <NavBar user = {user} logout = {logout} />}
       <Switch>
         <Route exact path = '/'>
           <Login attemptLogin = {attemptLogin} attemptSignup = {attemptSignup} />
@@ -99,6 +102,9 @@ function App() {
         </Route>
         <Route path = '/:username/expenses/:id'>
           <ExpenseCard user = {user} expenses = {expenses} />
+        </Route>
+        <Route path = '/:username'>
+          <Profile user = {user} />
         </Route>
       </Switch>
     </div>

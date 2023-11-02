@@ -72,6 +72,37 @@ def get_expense_by_id(username, id):
         return make_response(jsonify({'Error': 'Expense does not exist,'}), 404)
     return make_response(jsonify(expense.to_dict(rules = ('-user', '-category'))), 200)
 
+@app.delete('/<string:username>/expenses/<int:id>')
+def delete_expense(username, id):
+    user = User.query.filter(User.username == username).first()
+    expense = Expense.query.filter(Expense.id == id).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    if not expense:
+        return make_response(jsonify({'Error' : 'Expense not found.'}), 404)
+    db.session.delete(expense)
+    db.session.commit()
+    return make_response(jsonify({}), 201)
+
+@app.patch('/<string:username>/expenses/<int:id>')
+def update_expense(username, id):
+    user = User.query.filter(User.username == username).first()
+    expense = Expense.query.filter(Expense.id == id).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 400)
+    if not expense:
+        return make_response(jsonify({'Error' : 'Expense not found.'}), 400)
+    data = request.json
+    try:
+        for key in data:
+            setattr(expense, key, data[key])
+        db.session.add(expense)
+        db.session.commit()
+        return make_response(jsonify(expense.to_dict()), 201)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'Error': 'Bad patch request. ' + str(e)}), 405)
+
 @app.post('/<string:username>/home')
 def create_expense(username):
     data = request.json
@@ -89,6 +120,38 @@ def create_expense(username):
     except Exception as e:
         print(e)
         return make_response(jsonify({'Error': 'Invalid input. ' + str(e)}), 405)
+
+@app.get('/<string:username>')
+def get_user(username):
+    user = User.query.filter(User.username == username).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    return make_response(jsonify(user.to_dict(rules = ('-expenses',))), 200)
+
+@app.delete('/<string:username>')
+def delete_user(username):
+    user = User.query.filter(User.username == username).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    db.session.delete(user)
+    db.session.commit()
+    return make_response(jsonify({}), 201)
+
+@app.patch('/<string:username>')
+def update_user(username):
+    user = User.query.filter(User.username == username).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    data = request.json
+    try:
+        for key in data:
+            setattr(user, key, data[key])
+        db.session.add(user)
+        db.session.commit()
+        return make_response(jsonify(user.to_dict()), 201)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'Error': 'Bad response. ' + str(e)}), 405)
 
 if __name__ == '__main__':
     app.run(port = 5555, debug = True)
