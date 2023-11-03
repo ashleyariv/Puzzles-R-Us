@@ -1,9 +1,8 @@
-import { useParams} from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-function ExpenseCard({user, expenses, setExpenses, updateExpenses}) {
+function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails }) {
 
-    const [expenseDetails, setExpenseDetails] = useState({})
     const [paid, setPaid] = useState(false)
     const { id, username } = useParams()
 
@@ -17,19 +16,19 @@ function ExpenseCard({user, expenses, setExpenses, updateExpenses}) {
                 setExpenseDetails({})
             }
         })
-    }, [user])
+      }, [user])
 
-    function patchPaid(id) {
+    function patchPaid(id,paid) {
         fetch(`/${user.username}/expenses/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Accepts': 'application/json',
             },
-            body: JSON.stringify({paid})
+            body: JSON.stringify({"paid":paid})
         })
         .then(response => response.json())
-        .then(data => setPaid(data))
+        .then(data => {setExpenseDetails(data);setPaid(data['paid'])})
     }
 
     function deleteExpense(id) {
@@ -44,17 +43,14 @@ function ExpenseCard({user, expenses, setExpenses, updateExpenses}) {
                 alert('Something went wrong. Try again.')
             }
         })
-   
     }
 
     return (
         <div>
-            <h2>{expenseDetails.company_name}: ${expenseDetails.amount} ... 
-                <input 
-                type = 'checkbox'
-                checked = {paid}
-                onChange = {(e) => {setPaid(e.target.checked); patchPaid(id)}}
-                ></input>
+            <h2>{expenseDetails.company_name}: ${expenseDetails.amount}  
+                <button 
+                onClick = {() => {setPaid(!paid); patchPaid(id,!paid)}}
+                > {paid ? 'paid' : 'unpaid'} </button>
             </h2>
             <h3>{expenseDetails.date}</h3>
             <p>{expenseDetails.description}</p>

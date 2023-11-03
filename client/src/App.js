@@ -1,15 +1,17 @@
 import React, { useState, useEffect} from 'react'
-import { Switch, Route, useHistory} from "react-router-dom";
+import { Switch, Route, useHistory ,useParams} from "react-router-dom";
 import Login from './Login' 
 import Home from './Home'
 import ExpenseCard from './ExpenseCard';
 import NavBar from './NavBar';
 import Profile from './Profile';
+import History from './History'
 
 function App() {
 
   const [user, setUser] = useState(null)
   const [expenses, setExpenses] = useState([])
+  const [expenseDetails, setExpenseDetails] = useState({})
   let history = useHistory()
 
   useEffect(() => {
@@ -96,6 +98,10 @@ function App() {
     history.push('/home')
   }
 
+  function paidExpenses() {
+    const paidExpenses = expenses.filter(expense => expense.paid === true)
+  }
+
   return (
     <div className="App">
       {user && <NavBar user = {user} logout = {logout} />}
@@ -104,13 +110,16 @@ function App() {
           <Login attemptLogin = {attemptLogin} attemptSignup = {attemptSignup} />
         </Route>
         <Route path = '/home'>
-          {user ? (<Home user = {user} logout = {logout} expenses = {expenses} addExpense = {addExpense} />) : null}
+          {user ? (<Home user = {user} expenses = {expenses} addExpense = {addExpense} />) : null}
         </Route>
         <Route path = '/:username/expenses/:id'>
-          <ExpenseCard user = {user} expenses = {expenses} setExpenses = {setExpenses} updateExpenses = {updateExpenses}/>
+          <ExpenseCard user = {user} updateExpenses = {updateExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} />
         </Route>
         <Route path = '/:username'>
           <Profile user = {user} setUser = {setUser} />
+        </Route>
+        <Route path = '/:username/history'>
+          <History expenses = {expenses} setExpenses = {setExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} paidExpenses = {paidExpenses}  />
         </Route>
       </Switch>
     </div>

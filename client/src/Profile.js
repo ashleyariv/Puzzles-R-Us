@@ -26,6 +26,7 @@ function Profile({user, setUser}) {
         .then(response => {
             if(response.ok) {
                 setUser(null)
+                history.push('/')
             } else {
                 alert('Something went wrong. Please try again.')
             }
@@ -38,7 +39,7 @@ function Profile({user, setUser}) {
             <h3>Username: {profile.username}</h3>
             <h4>Email: {profile.email}</h4>
             <h4>Password: {profile.password}</h4>
-            <button onClick = {() => {deleteProfile(`${username}`); history.push('/')}}>Delete Account</button>
+            <button onClick = {() => deleteProfile(`${username}`)}>Delete Account</button>
         </div>
     )
 }
