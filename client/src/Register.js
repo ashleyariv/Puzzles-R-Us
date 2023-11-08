@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 function Register({attemptSignup}) {
     const [email, setEmail] = useState('')
@@ -16,30 +17,41 @@ function Register({attemptSignup}) {
 
     return (
         <div>
+        <div id = 'register'>
             <form onSubmit = {handleSignup} >
+                <h2>Signup for an account</h2>
+                <p>Email:</p>
             <input
+                    className = 'loginInput'
                     type = 'text'
                     onChange = {handleEmail}
                     value = {email}
                     placeholder = 'email'
                 />
+                <p>Username:</p>
                 <input
+                    className = 'loginInput'
                     type = 'text'
                     onChange = {handleUsername}
                     value = {username}
                     placeholder = 'username'
                 />
+                <p>Password:</p>
                 <input
+                    className = 'loginInput'
                     type = 'password'
                     onChange = {handlePassword}
                     value = {password}
                     placeholder = 'password'
                 />
                 <input
+                    className = 'loginButton'
                     type = 'submit'
                     value = 'Register' 
                 />
+                <p>Have an account? <Link to = '/'>Login</Link></p>
             </form>
+        </div>
         </div>
     )
 }

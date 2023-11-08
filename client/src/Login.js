@@ -1,7 +1,7 @@
 import {useState} from 'react'
-import Register from './Register'
+import { Link } from 'react-router-dom'
 
-function Login({attemptLogin, attemptSignup}) {
+function Login({attemptLogin}) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -14,27 +14,40 @@ function Login({attemptLogin, attemptSignup}) {
     }
 
     return (
-        <div>
-            <h1>Trackerque</h1>
-            <form onSubmit = {handleLogin}>
-                <input
-                    type = 'text'
-                    onChange = {handleUsername}
-                    value = {username}
-                    placeholder = 'username'
-                />
-                <input
-                    type = 'password'
-                    onChange = {handlePassword}
-                    value = {password}
-                    placeholder = 'password'
-                />
-                <input
-                    type = 'submit'
-                    value = 'Login' 
-                />
-            </form>
-            <Register attemptSignup = {attemptSignup} />
+        <div className = 'loginForms'>
+            <div id = 'login'>
+                <h2>Login to your account</h2>
+                <form onSubmit = {handleLogin}>
+                    <div id = 'username'>
+                        <p>Username:</p>
+                    <input
+                        className = 'loginInput'
+                        type = 'text'
+                        onChange = {handleUsername}
+                        value = {username}
+                        placeholder = 'username'
+                        required = 'required'
+                    />
+                    </div>
+                    <div>
+                    <p>Password: </p>
+                    <input
+                        className = 'loginInput'                    
+                        type = 'password'
+                        onChange = {handlePassword}
+                        value = {password}
+                        placeholder = 'password'
+                        required = 'required'
+                    />
+                    </div>
+                    <input
+                        className = 'loginButton'
+                        type = 'submit'
+                        value = 'LOGIN' 
+                    />
+                    <p>Don't have an account? <Link to = '/signup'>Signup</Link></p>
+                </form>
+            </div>
         </div>
     )
 }

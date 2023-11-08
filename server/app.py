@@ -72,6 +72,16 @@ def get_expense_by_id(username, id):
         return make_response(jsonify({'Error': 'Expense does not exist,'}), 404)
     return make_response(jsonify(expense.to_dict(rules = ('-user', '-category'))), 200)
 
+@app.get('/<string:username>/history/<int:id>')
+def get_history_by_id(username, id):
+    user = User.query.filter(User.username == username).first()
+    expense = Expense.query.filter(Expense.id == id).first()
+    if not user:
+        return make_response(jsonify({'Error' : 'User not found.'}), 404)
+    if not expense:
+        return make_response(jsonify({'Error': 'Expense does not exist,'}), 404)
+    return make_response(jsonify(expense.to_dict(rules = ('-user', '-category'))), 200)
+
 @app.delete('/<string:username>/expenses/<int:id>')
 def delete_expense(username, id):
     user = User.query.filter(User.username == username).first()

@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
+import Search from './Search'
 
-function Home({user, expenses, addExpense}) {
+function Home({user, expenses, addExpense, searchInput, setSearchInput}) {
 
     const defaultForm = {
         date: '', 
@@ -48,58 +49,74 @@ function Home({user, expenses, addExpense}) {
 
     return (
         <div>
-            <h2>Your Expenses</h2>
-            <form onSubmit = {handleSubmit}>
-                <input
-                    type = 'date'
-                    value = {date}
-                    onChange = {onDateChange}
-                />
-                <input 
-                    name = 'amount' 
-                    placeholder = 'Amount' 
-                    onChange = {handleChange}
-                    value = {form.amount}
-                />
-                <input 
-                    name = 'company_name'
-                    placeholder = 'Company Name'
-                    onChange = {handleChange}
-                    value = {form.company_name}
-                />
-                <select 
-                    id = 'select'
-                    name ='category'
-                    onChange = {handleChange}
-                    defaultValue = {'select one'} 
-                >
-                    <option value = 'select one' disabled>Select one</option>
-                    <option value = 'Food'>Food</option>
-                    <option value = 'Transportation/Travel'>Transportation/Travel</option>
-                    <option value = 'Supplies'>Supplies</option>
-                    <option value = 'Advertising'>Advertising</option>
-                    <option value = 'Rentals'>Rentals</option>
-                    <option value = 'Permits'>Permits</option>
-                    <option value = 'Medical'>Medical</option>
-                    <option value = 'Misc'>Misc</option>
-                </select>
-                <textarea
-                    name = 'description'
-                    rows = '10' 
-                    col = '20' 
-                    warp = 'hard' 
-                    maxLength = '300' 
-                    placeholder = 'Description/Reason for expense' 
-                    onChange = {handleChange} 
-                    value = {form.description}
-                ></textarea>
-                <button type = 'submit'>Submit</button>
-            </form>
-                {expenses.map(expense => (
-                    <Link to = {`/${user.username}/expenses/${expense.id}`} key = {expense.id}>
-                        <h3>{expense.company_name}</h3>
-                    </Link>
-                ))}
+            <div id = 'expenseForm'>
+                <h2>New Expense</h2>
+                <form className = 'expenseInputs' onSubmit = {handleSubmit} style = {{border: 'none'}}>
+                    <input
+                        className = 'expenseInputs'
+                        type = 'date'
+                        value = {date}
+                        onChange = {onDateChange}
+                        required = 'required'
+                    />
+                    <input 
+                        className = 'expenseInputs'
+                        name = 'amount' 
+                        placeholder = 'Amount' 
+                        onChange = {handleChange}
+                        value = {form.amount}
+                        required = 'required'
+                    />
+                    <input 
+                        className = 'expenseInputs'
+                        name = 'company_name'
+                        placeholder = 'Company Name'
+                        onChange = {handleChange}
+                        value = {form.company_name}
+                        required = 'required'
+                    />
+                    <select
+                        className = 'expenseInputs'
+                        id = 'select'
+                        name ='category'
+                        onChange = {handleChange}
+                        defaultValue = {'select one'} 
+                    >
+                        <option value = 'select one' disabled>Select one</option>
+                        <option value = 'Food'>Food</option>
+                        <option value = 'Transportation/Travel'>Transportation/Travel</option>
+                        <option value = 'Supplies'>Supplies</option>
+                        <option value = 'Advertising'>Advertising</option>
+                        <option value = 'Rentals'>Rentals</option>
+                        <option value = 'Permits'>Permits</option>
+                        <option value = 'Medical'>Medical</option>
+                        <option value = 'Misc'>Misc</option>
+                    </select>
+                    <textarea
+                        style = {{resize:"none"}}
+                        className = 'expenseInputs'
+                        name = 'description'
+                        rows = '10' 
+                        col = '20' 
+                        warp = 'hard' 
+                        maxLength = '300' 
+                        placeholder = 'Description/Reason for expense' 
+                        onChange = {handleChange} 
+                        value = {form.description}
+                        required = 'required'
+                    ></textarea>
+                    <button type = 'submit'>Submit</button>
+                </form>
+            </div>
+            <div className = 'expenseList'>
+                <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+                <h2 className = 'expenseH2'>Unpaid Expenses</h2>
+                    {expenses.map(expense => (
+                        <Link to = {`/${user.username}/expenses/${expense.id}`} key = {expense.id} id = 'expenseLink'>
+                            <h3 className = 'expenseH3'>{expense.company_name} ______________________________________ {expense.date}</h3>
+                        </Link>
+                    ))}
+            </div>
         </div>
     )
 }

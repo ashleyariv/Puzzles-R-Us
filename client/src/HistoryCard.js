@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) {
+function HistoryCard({user, updatePaidExpenses, expenseDetails, setExpenseDetails}) {
 
     const [paid, setPaid] = useState(false)
     const { id, username } = useParams()
     let history = useHistory()
 
     useEffect(() => {
-        fetch(`/${username}/expenses/${id}`)
+        fetch(`/${username}/history/${id}`)
         .then(response => {
             if(response.ok) {
                 response.json()
@@ -17,7 +17,7 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
                 setExpenseDetails({})
             }
         })
-      }, [user])
+      }, [])
 
     function patchPaid(id, paid) {
         fetch(`/${username}/expenses/${id}`, {
@@ -30,8 +30,8 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
         })
         .then(response => response.json())
         .then(data => {setExpenseDetails(data); setPaid(data['paid'])})
-        updateExpenses(id)
-        history.push('/home')
+        updatePaidExpenses(id)
+        history.push(`/${username}/history`)              
     }
 
     function deleteExpense(id) {
@@ -40,8 +40,8 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
         })
         .then(response => {
             if(response.ok) {
-                updateExpenses(id)
-                history.push('/home')               
+                updatePaidExpenses(id)
+                history.push(`/${username}/history`)              
             } else {
                 alert('Something went wrong. Try again.')
             }
@@ -62,4 +62,4 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
     )
 }
 
-export default ExpenseCard
+export default HistoryCard
