@@ -24,9 +24,16 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String , unique = True, nullable = False)
     username = db.Column(db.String, unique = True, nullable = False)
-    password = db.Column(db.String, unique = True, nullable = False)
+    password = db.Column(db.String, nullable = False)
 
     expenses = db.relationship('Expense', back_populates = 'user', cascade = 'all, delete-orphan')
+
+    @validates('username')
+    def valid_username(self, key, username):
+        existing_user = User.query.filter(User.username == username).first()
+        if existing_user and existing_user.id != self.id:
+            raise ValueError("Username already exists. Please choose a different one.")
+        return username
 
 class Expense(db.Model, SerializerMixin):
     __tablename__ = 'expense_table'

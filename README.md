@@ -1,71 +1,36 @@
-# Getting Started with Create React App
+# TrackerQue
+This app was developed mostly for freelancers who are always handling stacks upon stacks of receipts in order to get their expenses paid back by the company or people they are working for. The idea is to write in the core details of your epxenses, tracking it by amount, category and a breif decription for the expense in order to not have to keep track of small pieces of paper that tend to fade over short periods of time. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Core Features 
+-> Create an account or login in order to access your personal expense list.   
 
-## Available Scripts
+-> Edit your profile details or delete your account from your profile page.
 
-In the project directory, you can run:
+-> Create an expense to add to your list of unpaid epxenses.
 
-### `npm start`
+-> Once your expense is paid click the paid button to transfer it to your history page, and if that lick was unintentional then you can transfer it back to unpaid, not big deal. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-> Delete an expense if you no longer want to keep track of it from your unpaid or history page. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Puzzles-R-Us
+---
+## Setup 
+-> First install all the packages by opening a terminal, switching into the server directory and typing: 
+```
+pipenv install 
+```
+-> Then go into your virtual environment by typing:
+```
+pipenv shell
+```
+-> Start your server by typing into the shell: 
+```
+python app.py
+```
+-> In a new terminal, switch into the client directory and type:
+```
+npm install
+```
+-> After all your modules are downloaded you'll want to open up the app in your browser, do this by typing:
+```
+npm start
+```

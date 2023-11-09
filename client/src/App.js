@@ -53,11 +53,17 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-      .then(response => response.json())
-      .then(data => {
-        setUser(data)
-        history.push('/home')
-      });
+      .then(response => {
+        if (response.ok){
+        response.json()
+        .then(data => {
+          setUser(data)
+          history.push('/home')
+        })
+      } else{
+        alert('Incorrect username and/or password.')
+      }
+    })
   }
 
   function attemptSignup(userInfo) {
@@ -69,11 +75,17 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-      .then(response => response.json())
-      .then(data => {
-        setUser(data)
-        history.push('/home')
-      });
+      .then(response => {
+        if (response.ok) {
+        response.json()
+        .then(data => {
+          setUser(data)
+          history.push('/home')
+        })
+      } else {
+        alert('Account already exists, try signing in.')
+      }
+    }) 
   }
 
   function logout() {
