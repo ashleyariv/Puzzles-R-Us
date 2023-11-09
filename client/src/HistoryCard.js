@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-function HistoryCard({user, updatePaidExpenses, expenseDetails, setExpenseDetails}) {
+function HistoryCard({updateExpensesAgain, updatePaidExpenses, expenseDetails, setExpenseDetails}) {
 
     const [paid, setPaid] = useState(false)
     const { id, username } = useParams()
@@ -29,9 +29,13 @@ function HistoryCard({user, updatePaidExpenses, expenseDetails, setExpenseDetail
             body: JSON.stringify({'paid': paid})
         })
         .then(response => response.json())
-        .then(data => {setExpenseDetails(data); setPaid(data['paid'])})
-        updatePaidExpenses(id)
-        history.push(`/${username}/history`)              
+        .then(data => {
+            setExpenseDetails(data); 
+            setPaid(data['paid'])
+            updateExpensesAgain(data)
+            updatePaidExpenses(id)
+            history.push(`/${username}/history`)   
+        })     
     }
 
     function deleteExpense(id) {
@@ -52,7 +56,7 @@ function HistoryCard({user, updatePaidExpenses, expenseDetails, setExpenseDetail
         <div>
             <h2>{expenseDetails.company_name}: ${expenseDetails.amount}  
                 <button 
-                onClick = {() => {setPaid(!paid); patchPaid(id, !paid)}}
+                onClick = {() => {patchPaid(id, !paid)}}
                 > {paid ? 'paid' : 'unpaid'} </button>
             </h2>
             <h3>{expenseDetails.date}</h3>

@@ -154,33 +154,22 @@ def update_user(username):
         return make_response(jsonify({'Error' : 'User not found.'}), 404)
     data = request.json
     try:
-        for key in data:
-            setattr(user, key, data[key])
+        new_password = data.get('form').get('password')
+        if new_password:
+            hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+            user.password = hashed_password
+        new_username = data.get('form').get('username')
+        if new_username:
+            user.username = new_username
+        new_email = data.get('form').get('email')
+        if new_email:
+            user.email = new_email
         db.session.add(user)
         db.session.commit()
         return make_response(jsonify(user.to_dict()), 201)
     except Exception as e:
         print(e)
         return make_response(jsonify({'Error': 'Bad response. ' + str(e)}), 405)
-
-# @app.patch('/<string:username>/expenses/<int:id>')
-# def update_paid(username, id):
-#     expense = Expense.query.filter(Expense.id == id).first()
-#     if not expense:
-#         return make_response(jsonify({'Error': 'Expense not found.'}),404)
-#     data = request.json
-#     print(data)
-#     import ipdb; ipdb.set_trace()
-#     try:
-#         if 'paid' in data:
-#             expense.paid = data['paid']
-#             db.session.commit()
-#             return make_response(jsonify(expense.to_dict(rules = ('-user',))), 201)
-#         else: 
-#             return make_response(jsonify({'Error': 'Nothing patched.'}),405)
-#     except Exception as e:
-#         print(e)
-#         return make_response(jsonify({'Error': 'Something went wrong. ' + str(e)}), 405)
 
 if __name__ == '__main__':
     app.run(port = 5555, debug = True)

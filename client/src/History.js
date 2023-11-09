@@ -21,14 +21,16 @@ function History ({paidExpenses, setPaidExpenses, user, searchInput, setSearchIn
     }, [user])
 
     return (
-        <div className = 'expenseList'>
+        <div>
             <Search searchInput = {searchInput} setSearchInput = {setSearchInput} />
+        <div className = 'expenseList'>
                 <h2 className = 'expenseH2'>Paid Expenses</h2>
                     {paidExpenses.map(expense => (
                         <Link to = {`/${username}/history/${expense.id}`} key = {expense.id} id = 'expenseLink'>
                             <h3 className = 'expenseH3'>{expense.company_name} ______________________________________ {expense.date}</h3>
                         </Link>
                     ))}
+        </div>
         </div>
     )
 }

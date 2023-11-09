@@ -29,9 +29,12 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
             body: JSON.stringify({'paid': paid})
         })
         .then(response => response.json())
-        .then(data => {setExpenseDetails(data); setPaid(data['paid'])})
-        updateExpenses(id)
-        history.push('/home')
+        .then(data => {
+            setExpenseDetails(data); 
+            setPaid(data['paid'])
+            updateExpenses(id)
+            history.push('/home')
+        })   
     }
 
     function deleteExpense(id) {
@@ -47,12 +50,12 @@ function ExpenseCard({user, updateExpenses, expenseDetails, setExpenseDetails}) 
             }
         })
     }
-
+    console.log(expenseDetails.category)
     return (
         <div>
             <h2>{expenseDetails.company_name}: ${expenseDetails.amount}  
                 <button 
-                onClick = {() => {setPaid(!paid); patchPaid(id, !paid)}}
+                onClick = {() => {patchPaid(id, !paid)}}
                 > {paid ? 'paid' : 'unpaid'} </button>
             </h2>
             <h3>{expenseDetails.date}</h3>

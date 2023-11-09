@@ -39,6 +39,7 @@ class Expense(db.Model, SerializerMixin):
     description = db.Column(db.String(300), nullable = False)
     paid = db.Column(db.Boolean, default = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category_table.id'), nullable = False)
+    # category_name = db.Column(db.String, db.ForeignKey('category_table.'))
     user_id = db.Column(db.Integer, db.ForeignKey('user_table.id'), nullable = False)
 
     user = db.relationship('User', back_populates = 'expenses')

@@ -1,9 +1,6 @@
 body{
   background-image: url('https://thumbs.dreamstime.com/b/sales-receipt-background-2454523.jpg');
   background-attachment:fixed;
-  /* background-image: url('https://asset.gecdesigns.com/img/background-templates/dark-blue-business-background-template-1612192784768-cover.webp'); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
   background-position: center;
 }
 
@@ -31,6 +28,12 @@ body{
   border-radius: 6px;
   border-width: 8px;
   width: 280px;
+}
+
+#subLogo:hover {
+  transform: scale(1.05);
+  box-shadow:0px 5px 5px 0px rgba(211, 24, 217, 0.694);
+  transition: transform ease 0.1s, box-shadow ease 0.1s;
 }
 
 #login {
@@ -83,7 +86,9 @@ body{
   letter-spacing: 1.5px;
 }
 
-.loginButton:hover {background-color: antiquewhite}
+.loginButton:hover {
+  background-color: antiquewhite
+}
 
 .loginButton:active {
   background-color: rgba(218, 211, 25, 0.746);
@@ -104,9 +109,10 @@ body{
   display: block;
   font-size: 20px;
   padding-top: 10px;
-  padding: 10px 20px;
+  padding-right: 15px;;
+  padding-bottom: 10px;
+  padding-left: 15px;
   text-decoration: none;
-  /* font-style: oblique; */
   font-family:'Optima' sans-serif;
   letter-spacing: 1px;
   color: rgba(211, 24, 217, 0.694);
@@ -114,7 +120,7 @@ body{
   border-top-left-radius: 18px;
   border-bottom-right-radius: 18px;
   text-align: center;
-  /* figure out how to space out the links with borders */
+  margin: 10px;
 }
 
 .links:hover {
@@ -122,12 +128,10 @@ body{
   background-color: #bb29c2b3;
 }
 
-#logout {
-  border: none;
-  width: 153px;
-  font-family: oblique;
-  font-size: 20px;
-  text-align: left;
+.links:active {
+  background-color: rgba(218, 211, 25, 0.746);
+  box-shadow: 0 3px #bb29c2b3;
+  transform: translateY(4px);
 }
 
 #expenseForm {
@@ -136,7 +140,7 @@ body{
   background-color: rgba(255,255,255,0.13);
   position: absolute;
   transform: translate(-50%,-50%);
-  top: 78%;
+  top: 85%;
   left: 11%;
   border-radius: 10px;
   backdrop-filter: blur(5px);
@@ -149,16 +153,11 @@ body{
 }
 
 .expenseList {
-  left: 55%;
-  /* top: 70%; */
-  margin-top: 17%;
-  position: absolute;
+  top: -240px;
+  position: relative;
   text-align: center;
-  height: fit-content;
   width: fit-content;
   background-color: rgba(255, 255, 255, 0.13);
-  position: absolute;
-  transform: translate(-50%,-50%);
   border-radius: 10px;
   backdrop-filter: blur(5px);
   box-shadow: 0 0 70px rgba(211, 24, 217, 0.694);
@@ -166,6 +165,7 @@ body{
   padding-right: 35px;
   padding-bottom: 30px;
   padding-top:2px;
+  margin: auto;
 }
 
 .expenseH2 {
@@ -186,7 +186,7 @@ body{
   border-style: solid;
 }
 
-#expenseH3:hover {
+.expenseH3:hover {
   color: antiquewhite;
   background-color: #bb29c2b3;
 }
@@ -210,9 +210,37 @@ body{
 }
 
 #search {
-
+  float: right;
+  margin-right: 50px;
+  margin-top: -23%;
+  display: flex;
+  border: 3px solid rgba(211, 24, 217, 0.694);
+  border-radius: 3px;
 }
 
-#searchInput {
-  
+#search-input {
+  height: 30px;
+  text-align: center;
+  font-size: medium;
+}
+
+#search #search-input {
+  background-color: antiquewhite;
+  background-image: url(https://cdn-icons-png.flaticon.com/512/61/61088.png);
+  background-position: 5px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: none;
+  height: 35px;
+  padding: 0 0 0 34px;
+  -webkit-transition: width 400ms ease, background 400ms ease;
+  transition: width 400ms ease, background 400ms ease;
+  width: 0;
+}
+
+#search #search-input:focus {
+  background-color: #fff;
+  cursor: text;
+  outline: 0;
+  width: 200px;
 }

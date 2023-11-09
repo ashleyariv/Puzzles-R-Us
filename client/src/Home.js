@@ -108,8 +108,8 @@ function Home({user, expenses, addExpense, searchInput, setSearchInput}) {
                     <button type = 'submit'>Submit</button>
                 </form>
             </div>
+            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
             <div className = 'expenseList'>
-                <Search searchInput={searchInput} setSearchInput={setSearchInput} />
                 <h2 className = 'expenseH2'>Unpaid Expenses</h2>
                     {expenses.map(expense => (
                         <Link to = {`/${user.username}/expenses/${expense.id}`} key = {expense.id} id = 'expenseLink'>

@@ -53,8 +53,8 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-      .then((res)=>res.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         setUser(data)
         history.push('/home')
       });
@@ -69,8 +69,8 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-      .then((res) => res.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         setUser(data)
         history.push('/home')
       });
@@ -80,9 +80,10 @@ function App() {
     fetch('/logout', {
       method: 'DELETE'
     })
-    .then(response => {if (response.ok) {
-      setUser(null)
-      history.push('/')
+    .then(response => {
+      if (response.ok) {
+        setUser(null)
+        history.push('/')
     }})
   }
 
@@ -110,8 +111,15 @@ function App() {
   )})
 
   function updateExpenses(id) {
+    console.log(expenses)
     const updatedExpenses = expenses.filter(ex => parseInt(ex.id) !== parseInt(id))
+    console.log(updatedExpenses)
     setExpenses(updatedExpenses)
+  }
+
+
+  function updateExpensesAgain(newObj) {
+    setExpenses([...expenses, newObj])
   }
 
   function updatePaidExpenses(id) {
@@ -134,7 +142,7 @@ function App() {
           {user ? (<Home user = {user} expenses = {filteredExpenses} addExpense = {addExpense} searchInput = {searchInput} setSearchInput = {setSearchInput} />) : null}
         </Route>
         <Route path = '/:username/history/:id'>
-          <HistoryCard updateExpenses = {updateExpenses} updatePaidExpenses = {updatePaidExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} />
+          <HistoryCard updateExpensesAgain = {updateExpensesAgain} updatePaidExpenses = {updatePaidExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} />
         </Route>
         <Route path = '/:username/history'>
           <History user = {user} paidExpenses = {filteredPaidExpenses} setPaidExpenses = {setPaidExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} searchInput={searchInput} setSearchInput={setSearchInput} />
