@@ -19,19 +19,18 @@ function Login({attemptLogin}) {
                 <h2>Login to your account</h2>
                 <form onSubmit = {handleLogin}>
                     <div id = 'username'>
-                        <p>Username:</p>
-                    <input
-                        className = 'loginInput'
-                        type = 'text'
-                        onChange = {handleUsername}
-                        value = {username}
-                        placeholder = 'username'
-                        required = 'required'
-                    />
+                        <p>Username: <input
+                            className = 'loginInput'
+                            type = 'text'
+                            onChange = {handleUsername}
+                            value = {username}
+                            placeholder = 'username'
+                            required = 'required'
+                        />
+                    </p>
                     </div>
                     <div>
-                    <p>Password: </p>
-                    <input
+                    <p>Password: <input
                         className = 'loginInput'                    
                         type = 'password'
                         onChange = {handlePassword}
@@ -39,6 +38,7 @@ function Login({attemptLogin}) {
                         placeholder = 'password'
                         required = 'required'
                     />
+                    </p>
                     </div>
                     <input
                         className = 'loginButton'

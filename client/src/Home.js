@@ -105,7 +105,7 @@ function Home({user, expenses, addExpense, searchInput, setSearchInput}) {
                         value = {form.description}
                         required = 'required'
                     ></textarea>
-                    <button type = 'submit'>Submit</button>
+                    <button className = 'loginButton' type = 'submit'>Submit</button>
                 </form>
             </div>
             <Search searchInput={searchInput} setSearchInput={setSearchInput} />

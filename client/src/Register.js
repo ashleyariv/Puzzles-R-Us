@@ -20,30 +20,30 @@ function Register({attemptSignup}) {
         <div id = 'register'>
             <form onSubmit = {handleSignup} >
                 <h2>Signup for an account</h2>
-                <p>Email:</p>
-            <input
+                <p>Email: <input
                     className = 'loginInput'
                     type = 'text'
                     onChange = {handleEmail}
                     value = {email}
                     placeholder = 'email'
                 />
-                <p>Username:</p>
-                <input
+                </p>
+                <p>Username: <input
                     className = 'loginInput'
                     type = 'text'
                     onChange = {handleUsername}
                     value = {username}
                     placeholder = 'username'
                 />
-                <p>Password:</p>
-                <input
+                </p>
+                <p>Password: <input
                     className = 'loginInput'
                     type = 'password'
                     onChange = {handlePassword}
                     value = {password}
                     placeholder = 'password'
                 />
+                </p>
                 <input
                     className = 'loginButton'
                     type = 'submit'

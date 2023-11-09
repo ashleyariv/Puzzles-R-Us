@@ -18,8 +18,10 @@ body{
 #header {
   padding-left: 20px;
   font-style: oblique;
+  font-family: impact;
   background-color: antiquewhite; 
-  padding-right: 10px;
+  padding-right: 20px;
+  padding-left: 15px;
   text-decoration: none;
 }
 
@@ -69,11 +71,11 @@ body{
   padding-left: 6px;
   display: block;
   letter-spacing: 1px;
-  margin-left: 25%;
   position: absolute;
-  left: 45%;
-  margin: -25px 0 0 -25px;
-  display: inline-grid;
+  left: 38%;
+  display: inline-grid; 
+  border: none;
+  height: 25px;
 }
 
 .loginButton {
@@ -135,7 +137,7 @@ body{
 }
 
 #expenseForm {
-  height: 230px;
+  height: 255px;
   width: 230px;
   background-color: rgba(255,255,255,0.13);
   position: absolute;
@@ -149,7 +151,7 @@ body{
   padding-right: 20px;
   padding-bottom: 200px;
   padding-top:2px;
-  text-align: center
+  text-align: center;
 }
 
 .expenseList {
@@ -243,4 +245,60 @@ body{
   cursor: text;
   outline: 0;
   width: 200px;
+}
+
+.expenseDetails {
+  top: -240px;
+  position: relative;
+  text-align: center;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 70px rgba(211, 24, 217, 0.694);
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 30px;
+  padding-top:2px;
+  margin: auto;
+}
+
+.unpaidButton {
+  padding: 5px 15px;
+  border-radius: 7px;
+  box-shadow: 0 3px #bb29c2b3;
+  color:rgba(211, 24, 217, 0.694);
+  background-color: rgba(218, 212, 25, 0.882);
+  font-family: impact;
+  letter-spacing: 1.5px;
+  font-size: 20px;
+  float: left;
+  margin-left: 315px;
+  margin-top: -520px;
+}
+
+#deleteButton{
+  padding: 5px 15px;
+  border-radius: 7px;
+  box-shadow: 0 3px #bb29c2b3;
+  color:rgba(211, 24, 217, 0.694);
+  background-color: rgba(218, 212, 25, 0.882);
+  font-family: impact;
+  letter-spacing: 1.5px;
+  font-size: 20px;
+  float: left;
+  margin-left: 43.5%;
+  margin-top: -200px;
+  position: relative;
+}
+
+.formInput {
+  padding: 3px;
+  border: none;
+  margin: 5px;
+  text-align: center;
+  border-color:rgba(211, 24, 217, 0.694);
+  font-family:'Optima' sans-serif;
+  border-radius: 6px;
+  height: 25px;
 }

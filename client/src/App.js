@@ -111,9 +111,7 @@ function App() {
   )})
 
   function updateExpenses(id) {
-    console.log(expenses)
     const updatedExpenses = expenses.filter(ex => parseInt(ex.id) !== parseInt(id))
-    console.log(updatedExpenses)
     setExpenses(updatedExpenses)
   }
 
@@ -148,7 +146,7 @@ function App() {
           <History user = {user} paidExpenses = {filteredPaidExpenses} setPaidExpenses = {setPaidExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} searchInput={searchInput} setSearchInput={setSearchInput} />
         </Route>
         <Route path = '/:username/expenses/:id'>
-          <ExpenseCard user = {user} updateExpenses = {updateExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} />
+          <ExpenseCard user = {user} expenses = {expenses} updateExpenses = {updateExpenses} expenseDetails = {expenseDetails} setExpenseDetails = {setExpenseDetails} />
         </Route>
         <Route path = '/:username'>
           <Profile user = {user} setUser = {setUser} />

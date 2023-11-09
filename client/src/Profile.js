@@ -73,45 +73,48 @@ function Profile({ user, setUser }) {
 
     return (
         <div>
-            <button onClick={togglePopup}>Edit Profile</button>
+            <div className = 'expenseDetails'>
             <h1>User Profile Details</h1>
             <h3>Username: {profile.username}</h3>
             <h4>Email: {profile.email}</h4>
             <h4 id='password'>Password: </h4>
+            <button className = 'loginButton' onClick={togglePopup}>Edit Profile</button>
             {showPopup && (
                 <div className="popup">
                     <form>
-                        <p>Email: </p>
-                        <input
+                        <p>Email: <input
+                            className = 'formInput'
                             type='text'
                             name='email'
                             value={form.email}
                             onChange={handleInputChange}
                             placeholder='email'
                         />
-                        <p>Username: </p>
-                        <input
+                        </p>
+                        <p>Username: <input
+                            className = 'formInput'
                             type='text'
                             name='username'
                             value={form.username}
                             onChange={handleInputChange}
                             placeholder='username'
                         />
-                        <p>Password: </p>
-                        <input
+                        </p>
+                        <p>Password: <input
+                            className = 'formInput'
                             type='password'
                             name='password'
                             value={form.password}
                             onChange={handleInputChange}
                             placeholder='password'
                         />
-                        <button type='button' onClick={updateProfile}>
-                            Update Profile
-                        </button>
+                        </p>
+                        <button className = 'loginButton' type='button' onClick={updateProfile}>UPDATE</button>
                     </form>
                 </div>
             )}
-            <button onClick={() => deleteProfile(`${username}`)}>Delete Account</button>
+            </div>
+            <button id = 'deleteButton' onClick={() => deleteProfile(`${username}`)}>DELETE ACCOUNT</button>
         </div>
     )
 }

@@ -54,15 +54,18 @@ function HistoryCard({updateExpensesAgain, updatePaidExpenses, expenseDetails, s
 
     return (
         <div>
-            <h2>{expenseDetails.company_name}: ${expenseDetails.amount}  
-                <button 
-                onClick = {() => {patchPaid(id, !paid)}}
-                > {paid ? 'paid' : 'unpaid'} </button>
-            </h2>
-            <h3>{expenseDetails.date}</h3>
-            <p>{expenseDetails.description}</p>
-            <button onClick = {() => {deleteExpense(`${id}`)}}>Delete Expense</button>
+        <div className = 'expenseDetails'>
+        <h2>This expense was made for {expenseDetails.company_name}</h2>
+        <h3>The total amount is ${expenseDetails.amount}</h3>
+        <h3>Date of Expense: {expenseDetails.date}</h3>
+        <h3>Reason for Expense:</h3>
+        <p>{expenseDetails.description}</p>
+        <button className = 'loginButton' onClick = {() => {deleteExpense(`${id}`)}}>Delete Expense</button>
         </div>
+        <button className = 'unpaidButton' onClick = {() => {patchPaid(id, !paid)}}> 
+            {paid ? 'PAID' : 'UNPAID'} 
+        </button>
+    </div>
     )
 }
 
